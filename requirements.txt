@@ -9,6 +9,3 @@ sentence-transformers==2.3.1
 # Explicitly specify lighter versions if needed
 numpy>=1.24.0,<2.0.0
 torch>=2.0.0
-
-# HTTP and utilities
-httpx==0.25.2
