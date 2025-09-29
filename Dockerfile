@@ -10,9 +10,9 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /build
 
 # Copy and install Python dependencies
-COPY embedding_requirements.txt .
+COPY requirements.txt .
 RUN pip install --user --no-cache-dir --no-warn-script-location \
-    -r embedding_requirements.txt
+    -r requirements.txt
 
 # Pre-download the model in the builder stage
 RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-mpnet-base-v2')"
@@ -49,7 +49,7 @@ USER app
 WORKDIR /home/app
 
 # Copy app files to user directory
-COPY --chown=app:app embedding_main.py .
+COPY --chown=app:app main.py .
 
 # Expose port
 EXPOSE 8001
@@ -59,4 +59,4 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=120s --retries=3 \
   CMD curl -f http://localhost:8001/health || exit 1
 
 # Run the application
-CMD ["python", "-m", "uvicorn", "embedding_main:app", "--host", "0.0.0.0", "--port", "8001", "--workers", "1"]
+CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001", "--workers", "1"]
