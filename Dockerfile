@@ -15,7 +15,7 @@ RUN pip install --user --no-cache-dir --no-warn-script-location \
     -r requirements.txt
 
 # Pre-download the model in the builder stage
-RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-mpnet-base-v2')"
+# RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-mpnet-base-v2')"
 
 # Final lightweight runtime stage
 FROM python:3.11-slim
