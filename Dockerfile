@@ -34,7 +34,7 @@ COPY --from=builder /root/.local /root/.local
 COPY --from=builder /root/.cache /root/.cache
 
 # Copy application code
-COPY embedding_main.py .
+COPY main.py .
 
 # Update PATH to include user packages
 ENV PATH=/root/.local/bin:$PATH
