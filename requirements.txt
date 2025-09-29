@@ -1,0 +1,7 @@
+# Embedding Service Requirements
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.5.0
+
+# Let sentence-transformers handle torch and other ML deps
+sentence-transformers==2.3.1

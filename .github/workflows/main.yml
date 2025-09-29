@@ -1,0 +1,39 @@
+# A descriptive name for your workflow
+name: Build and Push Docker Image
+
+# This section defines the trigger for the workflow.
+# It will run on every push to the "main" branch.
+on:
+  push:
+    branches: [ "main" ]
+
+# This section defines the jobs that will run. We only have one job here.
+jobs:
+  build_and_push:
+    # The type of machine to run the job on. "ubuntu-latest" is standard and reliable.
+    runs-on: ubuntu-latest
+
+    # These are the individual steps the job will perform in order.
+    steps:
+      # Step 1: Check out your repository code so the workflow can access it.
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Log in to Docker Hub using the secrets we stored earlier.
+      # This uses a pre-built, trusted action from the Docker community.
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Step 3: Build the Docker image and push it to your Docker Hub repository.
+      # This single action handles both building and pushing, which is very convenient.
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          # Tells the action to push the image after a successful build.
+          push: true
+          # The tag (name) for your Docker image.
+          # Make sure to replace "your-dockerhub-username" and "my-chatbot-backend".
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/chatbot-backend:latest
